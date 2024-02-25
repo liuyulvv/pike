@@ -1,8 +1,13 @@
 import { useEffect, useRef } from 'react';
+import Stage from '../3D/Stage';
+import useStageStore from '../store/StageStore';
 
 function Canvas() {
     const mainContainer = useRef<HTMLDivElement>(null);
     const mainCanvas = useRef<HTMLCanvasElement>(null);
+
+    const stage = Stage.getInstance();
+    useStageStore.setState({ stage: stage });
 
     useEffect(() => {
         const { current: container } = mainContainer;
@@ -12,12 +17,18 @@ function Canvas() {
         const resize = () => {
             canvas.width = container.clientWidth;
             canvas.height = container.clientHeight;
+            stage.resize();
         };
         resize();
 
         window.addEventListener('resize', resize);
 
-        return () => window.removeEventListener('resize', resize);
+        stage.init();
+
+        return () => {
+            window.removeEventListener('resize', resize);
+            stage.dispose();
+        };
     });
 
     return (
