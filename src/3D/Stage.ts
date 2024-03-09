@@ -24,11 +24,13 @@ export default class Stage {
         this.canvas_ = document.getElementById('main_canvas') as HTMLCanvasElement;
         this.engine_ = new Engine(this.canvas_);
         this.scene_ = new Scene(this.engine_);
+        this.scene_.useRightHandedSystem = true;
         this.scene_.clearColor = new Color4(1, 1, 1, 1);
         this.camera_ = CameraTop.getInstance();
         this.camera_.init(this.scene_);
         this.camera_.attach(this.canvas_, this.scene_);
         this.ground_ = MeshBuilder.CreateGround('ground', { width: 100, height: 100 }, this.scene_);
+        this.ground_.rotate(new Vector3(1, 0, 0), Math.PI / 2);
         const ground_material = new GridMaterial('ground_material', this.scene_);
         ground_material.opacity = 0.5;
         ground_material.useMaxLine = true;

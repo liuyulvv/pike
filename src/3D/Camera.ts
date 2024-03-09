@@ -15,7 +15,7 @@ export default class CameraTop {
     }
 
     public init(scene: Scene) {
-        this.camera_ = new ArcRotateCamera('camera', -Math.PI / 2, 0, 10, Vector3.Zero(), scene);
+        this.camera_ = new ArcRotateCamera('camera', Math.PI / 2, 0, 10, Vector3.Zero(), scene);
         this.camera_.lowerBetaLimit = -10;
         this.camera_.upperBetaLimit = 10;
         this.camera_.lowerAlphaLimit = -10;
@@ -23,6 +23,7 @@ export default class CameraTop {
         this.camera_.mode = Camera.ORTHOGRAPHIC_CAMERA;
         this.camera_.orthoLeft = -10;
         this.camera_.orthoRight = 10;
+        this.camera_.upVector = new Vector3(0, 0, 1);
         this.oldRadius_ = this.camera_.radius;
         this.camera_.inputs.clear();
         this.camera_.inputs.addMouseWheel();
