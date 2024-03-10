@@ -1,5 +1,6 @@
 import { AxesViewer, Color3, Color4, Engine, Matrix, Mesh, MeshBuilder, Scene, Vector2, Vector3 } from '@babylonjs/core';
 import { GridMaterial } from '@babylonjs/materials';
+import PickInfo from '../interface/PickInfo';
 import CameraTop from './Camera';
 
 export default class Stage {
@@ -61,6 +62,26 @@ export default class Stage {
         if (this.engine_) {
             this.engine_.resize();
             this.camera_?.setCameraOrtho(this.canvas_!.height / this.canvas_!.width);
+        }
+    }
+
+    public pick() {
+        const pickInfo = this.scene_!.pick(this.scene_!.pointerX, this.scene_!.pointerY, undefined, false, undefined, (p0, p1, p2, ray) => {
+            const p0_p1 = p0.subtract(p1);
+            const p2_p1 = p2.subtract(p1);
+            const normal = Vector3.Cross(p0_p1, p2_p1);
+            return Vector3.Dot(ray.direction, normal) < 0;
+        });
+        const pickResult: PickInfo = {
+            hit: false,
+            meshID: ''
+        };
+        if (!pickInfo.hit || (pickInfo.hit && pickInfo.pickedMesh?.id == 'ground')) {
+            return pickResult;
+        } else {
+            pickResult.hit = true;
+            pickResult.meshID = pickInfo.pickedMesh!.id;
+            return pickResult;
         }
     }
 

@@ -1,10 +1,12 @@
-import { ArcRotateCamera, ArcRotateCameraPointersInput, Camera, Nullable, PointerTouch, Scene, Vector3 } from '@babylonjs/core';
+import { ArcRotateCamera, ArcRotateCameraPointersInput, Camera, IPointerEvent, Nullable, PointerTouch, Scene, Vector3 } from '@babylonjs/core';
+import useStageStore from '../store/StageStore';
 
 export default class CameraTop {
     private static instance_: CameraTop;
 
     private camera_: ArcRotateCamera | undefined;
     private oldRadius_: number = 0;
+
     private constructor() {}
 
     public static getInstance() {
@@ -70,14 +72,40 @@ export default class CameraTop {
 }
 
 class Camera2DPointersInput extends ArcRotateCameraPointersInput {
+    private stage_ = useStageStore.getState().stage;
+    private picked_: boolean = false;
+
     public constructor() {
         super();
     }
 
+    onButtonDown(evt: IPointerEvent): void {
+        if (evt.button == 0) {
+            const pickInfo = this.stage_?.pick();
+            this.picked_ = pickInfo?.hit ?? false;
+        }
+    }
+
     onTouch(_point: Nullable<PointerTouch>, offsetX: number, offsetY: number): void {
-        if (this._buttonsPressed == 1 || this._buttonsPressed == 2) {
-            this.camera.inertialPanningX += -offsetX / this.panningSensibility;
-            this.camera.inertialPanningY += offsetY / this.panningSensibility;
+        if (this._ctrlKey || this._shiftKey || this._altKey || this._metaKey) {
+            return;
+        }
+        if (this.picked_) {
+            if (this._buttonsPressed == 2) {
+                this.camera.inertialPanningX += -offsetX / this.panningSensibility;
+                this.camera.inertialPanningY += offsetY / this.panningSensibility;
+            }
+        } else {
+            if (this._buttonsPressed == 1 || this._buttonsPressed == 2) {
+                this.camera.inertialPanningX += -offsetX / this.panningSensibility;
+                this.camera.inertialPanningY += offsetY / this.panningSensibility;
+            }
+        }
+    }
+
+    onButtonUp(evt: IPointerEvent): void {
+        if (evt.button == 0) {
+            this.picked_ = false;
         }
     }
 }

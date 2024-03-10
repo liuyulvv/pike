@@ -1,6 +1,6 @@
 import { createStore } from 'zustand/vanilla';
 
-export enum DrawType {
+export enum DrawStateType {
     NONE = 'none',
     LINE = 'line',
     ARC = 'arc',
@@ -10,12 +10,12 @@ export enum DrawType {
 
 interface DrawState {
     draw: boolean;
-    type: DrawType;
+    type: DrawStateType;
 }
 
 const useDrawStore = createStore<DrawState>()(() => ({
     draw: false,
-    type: DrawType.NONE
+    type: DrawStateType.NONE
 }));
 
 export default useDrawStore;

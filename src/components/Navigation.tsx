@@ -1,5 +1,5 @@
 import { Button, Space } from '@arco-design/web-react';
-import useDrawStore, { DrawType } from '../store/DrawStore';
+import useDrawStore, { DrawStateType } from '../store/DrawStore';
 
 function Navigation() {
     return (
@@ -14,7 +14,7 @@ function Navigation() {
                     disabled
                     type="primary"
                     onClick={() => {
-                        useDrawStore.setState({ type: DrawType.LINE });
+                        useDrawStore.setState({ type: DrawStateType.LINE });
                     }}
                 >
                     直线
@@ -23,7 +23,7 @@ function Navigation() {
                     disabled
                     type="primary"
                     onClick={() => {
-                        useDrawStore.setState({ type: DrawType.ARC });
+                        useDrawStore.setState({ type: DrawStateType.ARC });
                     }}
                 >
                     弧形
@@ -32,7 +32,7 @@ function Navigation() {
                     disabled
                     type="primary"
                     onClick={() => {
-                        useDrawStore.setState({ type: DrawType.RECTANGLE });
+                        useDrawStore.setState({ type: DrawStateType.RECTANGLE });
                     }}
                 >
                     矩形
@@ -41,7 +41,7 @@ function Navigation() {
                     disabled
                     type="primary"
                     onClick={() => {
-                        useDrawStore.setState({ type: DrawType.CIRCLE });
+                        useDrawStore.setState({ type: DrawStateType.CIRCLE });
                     }}
                 >
                     圆形

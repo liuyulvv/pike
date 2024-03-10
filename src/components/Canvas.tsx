@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import Stage from '../3D/Stage';
+import useInteractionStore from '../store/InteractionStore';
 import useStageStore from '../store/StageStore';
 
 function Canvas() {
@@ -24,6 +25,8 @@ function Canvas() {
         window.addEventListener('resize', resize);
 
         stage.init();
+        useStageStore.setState({ canvas: canvas });
+        useInteractionStore.getState().interaction.attach();
 
         return () => {
             window.removeEventListener('resize', resize);
