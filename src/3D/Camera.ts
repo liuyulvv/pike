@@ -18,15 +18,20 @@ export default class CameraTop {
 
     public init(scene: Scene) {
         this.camera_ = new ArcRotateCamera('camera', Math.PI / 2, 0, 10, Vector3.Zero(), scene);
-        this.camera_.lowerBetaLimit = -10;
-        this.camera_.upperBetaLimit = 10;
-        this.camera_.lowerAlphaLimit = -10;
-        this.camera_.upperAlphaLimit = 10;
+        this.camera_.lowerBetaLimit = 0;
+        this.camera_.upperBetaLimit = 0;
+        this.camera_.lowerAlphaLimit = Math.PI / 2;
+        this.camera_.upperAlphaLimit = Math.PI / 2;
         this.camera_.mode = Camera.ORTHOGRAPHIC_CAMERA;
         this.camera_.orthoLeft = -10;
         this.camera_.orthoRight = 10;
+        this.camera_.lowerRadiusLimit = 0;
         this.camera_.upVector = new Vector3(0, 0, 1);
         this.oldRadius_ = this.camera_.radius;
+        this.camera_.inertia = 0;
+        this.camera_.wheelPrecision = 1;
+        this.camera_.panningInertia = 0;
+        this.camera_.panningSensibility = 100;
         this.camera_.inputs.clear();
         this.camera_.inputs.addMouseWheel();
         this.camera_.inputs.add(new Camera2DPointersInput());
@@ -35,6 +40,10 @@ export default class CameraTop {
             this.setCameraOrtho(canvas.height / canvas.width);
         }
         scene.onBeforeRenderObservable.add(() => {
+            const position = this.camera_?.position;
+            if (position && this.camera_) {
+                this.camera_.panningSensibility = 1000 / position.z;
+            }
             const canvas = scene.getEngine().getRenderingCanvas();
             if (canvas && this.camera_ && this.oldRadius_ != this.camera_.radius) {
                 const change = this.camera_.radius / this.oldRadius_;
