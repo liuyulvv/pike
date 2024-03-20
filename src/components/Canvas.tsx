@@ -26,7 +26,7 @@ function Canvas() {
 
         stage.init();
         useStageStore.setState({ canvas: canvas });
-        useInteractionStore.getState().interaction.attach();
+        useInteractionStore.getState().mainInteraction.attach();
 
         return () => {
             window.removeEventListener('resize', resize);

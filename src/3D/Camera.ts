@@ -1,4 +1,5 @@
 import { ArcRotateCamera, ArcRotateCameraPointersInput, Camera, IPointerEvent, Nullable, PointerTouch, Scene, Vector3 } from '@babylonjs/core';
+import useDrawStore, { DrawStateType } from '../store/DrawStore';
 import useStageStore from '../store/StageStore';
 
 export default class CameraTop {
@@ -99,15 +100,23 @@ class Camera2DPointersInput extends ArcRotateCameraPointersInput {
         if (this._ctrlKey || this._shiftKey || this._altKey || this._metaKey) {
             return;
         }
-        if (this.picked_) {
+        const drawState = useDrawStore.getState();
+        if (drawState.type != DrawStateType.NONE) {
             if (this._buttonsPressed == 2) {
                 this.camera.inertialPanningX += -offsetX / this.panningSensibility;
                 this.camera.inertialPanningY += offsetY / this.panningSensibility;
             }
         } else {
-            if (this._buttonsPressed == 1 || this._buttonsPressed == 2) {
-                this.camera.inertialPanningX += -offsetX / this.panningSensibility;
-                this.camera.inertialPanningY += offsetY / this.panningSensibility;
+            if (this.picked_) {
+                if (this._buttonsPressed == 2) {
+                    this.camera.inertialPanningX += -offsetX / this.panningSensibility;
+                    this.camera.inertialPanningY += offsetY / this.panningSensibility;
+                }
+            } else {
+                if (this._buttonsPressed == 1 || this._buttonsPressed == 2) {
+                    this.camera.inertialPanningX += -offsetX / this.panningSensibility;
+                    this.camera.inertialPanningY += offsetY / this.panningSensibility;
+                }
             }
         }
     }

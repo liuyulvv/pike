@@ -2,9 +2,10 @@ import { Vector2 } from '@babylonjs/core';
 import PickInfo from '../interface/PickInfo';
 import useEntityStore from '../store/EntityStore';
 import useStageStore from '../store/StageStore';
+import Interaction from './Interaction';
 
-export default class Interaction {
-    private static instance_: Interaction;
+export default class MainInteraction extends Interaction {
+    private static instance_: MainInteraction;
 
     private entityManager_ = useEntityStore.getState().entityManager;
 
@@ -20,6 +21,7 @@ export default class Interaction {
     private dragging_: boolean;
 
     private constructor() {
+        super();
         this.pointerDownPosition_ = new Vector2(0, 0);
         this.pointerDownPickInfo_ = {
             hit: false,
@@ -32,11 +34,11 @@ export default class Interaction {
         this.dragging_ = false;
     }
 
-    public static getInstance(): Interaction {
-        if (!Interaction.instance_) {
-            Interaction.instance_ = new Interaction();
+    public static getInstance(): MainInteraction {
+        if (!MainInteraction.instance_) {
+            MainInteraction.instance_ = new MainInteraction();
         }
-        return Interaction.instance_;
+        return MainInteraction.instance_;
     }
 
     public attach() {
@@ -69,7 +71,7 @@ export default class Interaction {
         return pickInfo;
     }
 
-    private onPointerDown(event: PointerEvent) {
+    protected onPointerDown(event: PointerEvent) {
         this.pointerDownPosition_.x = event.clientX;
         this.pointerDownPosition_.y = event.clientY;
         if (event.buttons == 1) {
@@ -77,7 +79,7 @@ export default class Interaction {
         }
     }
 
-    private onPointerMove(event: PointerEvent) {
+    protected onPointerMove(event: PointerEvent) {
         if (event.buttons == 1 && this.pointerDownPickInfo_.hit) {
             const entity = this.entityManager_.getEntity(this.pointerDownPickInfo_.meshID);
             if (entity && entity.draggable) {
@@ -110,7 +112,7 @@ export default class Interaction {
         }
     }
 
-    private onPointerUp(event: PointerEvent) {
+    protected onPointerUp(event: PointerEvent) {
         if (this.dragging_) {
             const entity = this.entityManager_.getEntity(this.pointerDownPickInfo_.meshID);
             if (entity && entity.draggable) {

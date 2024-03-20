@@ -11,7 +11,6 @@ function Navigation() {
         >
             <Space size="large">
                 <Button
-                    disabled
                     type="primary"
                     onClick={() => {
                         useDrawStore.setState({ type: DrawStateType.LINE });
@@ -20,7 +19,6 @@ function Navigation() {
                     直线
                 </Button>
                 <Button
-                    disabled
                     type="primary"
                     onClick={() => {
                         useDrawStore.setState({ type: DrawStateType.ARC });
@@ -29,7 +27,6 @@ function Navigation() {
                     弧形
                 </Button>
                 <Button
-                    disabled
                     type="primary"
                     onClick={() => {
                         useDrawStore.setState({ type: DrawStateType.RECTANGLE });
@@ -38,7 +35,6 @@ function Navigation() {
                     矩形
                 </Button>
                 <Button
-                    disabled
                     type="primary"
                     onClick={() => {
                         useDrawStore.setState({ type: DrawStateType.CIRCLE });
