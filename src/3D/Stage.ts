@@ -67,9 +67,9 @@ export default class Stage {
 
     public pick() {
         const pickInfo = this.scene_!.pick(this.scene_!.pointerX, this.scene_!.pointerY, undefined, false, undefined, (p0, p1, p2, ray) => {
-            const p0_p1 = p0.subtract(p1);
-            const p2_p1 = p2.subtract(p1);
-            const normal = Vector3.Cross(p0_p1, p2_p1);
+            const p0P1 = p0.subtract(p1);
+            const p2P1 = p2.subtract(p1);
+            const normal = Vector3.Cross(p0P1, p2P1);
             return Vector3.Dot(ray.direction, normal) < 0;
         });
         const pickResult: PickInfo = {
