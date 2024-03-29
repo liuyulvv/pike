@@ -9,9 +9,9 @@ export default class MainInteraction extends Interaction {
 
     private entityManager_ = useEntityStore.getState().entityManager;
 
-    private onPointerDownBind = this.onPointerDown.bind(this);
-    private onPointerMoveBind = this.onPointerMove.bind(this);
-    private onPointerUpBind = this.onPointerUp.bind(this);
+    private onPointerDownBind_ = this.onPointerDown.bind(this);
+    private onPointerMoveBind_ = this.onPointerMove.bind(this);
+    private onPointerUpBind_ = this.onPointerUp.bind(this);
 
     private pointerDownPosition_: Vector2;
 
@@ -44,18 +44,18 @@ export default class MainInteraction extends Interaction {
     public attach() {
         const canvas = useStageStore.getState().canvas;
         if (canvas) {
-            canvas.addEventListener('pointerdown', this.onPointerDownBind);
-            canvas.addEventListener('pointermove', this.onPointerMoveBind);
-            canvas.addEventListener('pointerup', this.onPointerUpBind);
+            canvas.addEventListener('pointerdown', this.onPointerDownBind_);
+            canvas.addEventListener('pointermove', this.onPointerMoveBind_);
+            canvas.addEventListener('pointerup', this.onPointerUpBind_);
         }
     }
 
     public detach() {
         const canvas = useStageStore.getState().canvas;
         if (canvas) {
-            canvas.removeEventListener('pointerdown', this.onPointerDownBind);
-            canvas.removeEventListener('pointermove', this.onPointerMoveBind);
-            canvas.removeEventListener('pointerup', this.onPointerUpBind);
+            canvas.removeEventListener('pointerdown', this.onPointerDownBind_);
+            canvas.removeEventListener('pointermove', this.onPointerMoveBind_);
+            canvas.removeEventListener('pointerup', this.onPointerUpBind_);
         }
     }
 

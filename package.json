@@ -10,24 +10,26 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@arco-design/web-react": "^2.60.0",
-        "@babylonjs/core": "^6.44.0",
-        "@babylonjs/materials": "^6.44.0",
+        "@arco-design/web-react": "^2.61.1",
+        "@babylonjs/core": "^6.48.1",
+        "@babylonjs/materials": "^6.48.1",
         "normalize.css": "^8.0.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "zustand": "^4.5.1"
+        "uuid": "^9.0.1",
+        "zustand": "^4.5.2"
     },
     "devDependencies": {
-        "@types/react": "^18.2.56",
-        "@types/react-dom": "^18.2.19",
-        "@typescript-eslint/eslint-plugin": "^7.0.2",
-        "@typescript-eslint/parser": "^7.0.2",
+        "@types/react": "^18.2.72",
+        "@types/react-dom": "^18.2.22",
+        "@types/uuid": "^9.0.8",
+        "@typescript-eslint/eslint-plugin": "^7.4.0",
+        "@typescript-eslint/parser": "^7.4.0",
         "@vitejs/plugin-react": "^4.2.1",
-        "eslint": "^8.56.0",
+        "eslint": "^8.57.0",
         "eslint-plugin-react-hooks": "^4.6.0",
-        "eslint-plugin-react-refresh": "^0.4.5",
-        "typescript": "^5.2.2",
-        "vite": "^5.1.4"
+        "eslint-plugin-react-refresh": "^0.4.6",
+        "typescript": "^5.4.3",
+        "vite": "^5.2.6"
     }
 }

@@ -2,15 +2,15 @@ import { MeshBuilder as builder, Color4, LinesMesh, Vector3 } from '@babylonjs/c
 import { PKVertex } from '../PKTopo/PKVertex';
 
 export default class MeshBuilder {
-    private static instance: MeshBuilder;
+    private static instance_: MeshBuilder;
 
     private constructor() {}
 
     public static getInstance() {
-        if (!MeshBuilder.instance) {
-            MeshBuilder.instance = new MeshBuilder();
+        if (!MeshBuilder.instance_) {
+            MeshBuilder.instance_ = new MeshBuilder();
         }
-        return MeshBuilder.instance;
+        return MeshBuilder.instance_;
     }
 
     public createLine(source: PKVertex, target: PKVertex, color: string | undefined, instance: LinesMesh | undefined) {
