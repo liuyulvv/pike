@@ -1,5 +1,5 @@
-import { MeshBuilder as builder, Color4, LinesMesh } from '@babylonjs/core';
-import Point from '../geometry/Point';
+import { MeshBuilder as builder, Color4, LinesMesh, Vector3 } from '@babylonjs/core';
+import { PKVertex } from '../PKTopo/PKVertex';
 
 export default class MeshBuilder {
     private static instance: MeshBuilder;
@@ -13,9 +13,9 @@ export default class MeshBuilder {
         return MeshBuilder.instance;
     }
 
-    public createLine(source: Point, target: Point, color: string | undefined, instance: LinesMesh | undefined) {
+    public createLine(source: PKVertex, target: PKVertex, color: string | undefined, instance: LinesMesh | undefined) {
         return builder.CreateLines('line', {
-            points: [source.toVector3(), target.toVector3()],
+            points: [new Vector3(source.x, source.y, source.z), new Vector3(target.x, target.y, target.z)],
             updatable: true,
             instance: instance,
             colors: color ? [Color4.FromHexString(color)] : undefined
