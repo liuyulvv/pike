@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Navigation } from './components/Navigation';
+import { Draft } from './Draft';
 
 function App() {
     useEffect(() => {
@@ -7,7 +7,7 @@ function App() {
         const resize = () => {
             canvas.width = document.body.clientWidth;
             canvas.height = document.body.clientHeight;
-            console.log('Resized canvas to', canvas.width, canvas.height);
+            Draft.get().resize(canvas.width, canvas.height);
         };
         resize();
         window.addEventListener('resize', resize);
@@ -23,9 +23,7 @@ function App() {
                 flexDirection: 'column',
                 height: '100vh'
             }}
-        >
-            <Navigation />
-        </div>
+        ></div>
     );
 }
 
