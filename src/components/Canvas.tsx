@@ -1,36 +1,23 @@
 import { useEffect, useRef } from 'react';
-import Stage from '../3D/Stage';
-import useInteractionStore from '../store/InteractionStore';
-import useStageStore from '../store/StageStore';
+import { run } from 'draft';
 
-function Canvas() {
+export function Canvas() {
     const mainContainer = useRef<HTMLDivElement>(null);
     const mainCanvas = useRef<HTMLCanvasElement>(null);
 
-    const stage = Stage.getInstance();
-    useStageStore.setState({ stage: stage });
-
     useEffect(() => {
         const { current: container } = mainContainer;
-        const { current: canvas } = mainCanvas;
+        const canvas = document.getElementById('main_canvas') as HTMLCanvasElement;
         if (!container || !canvas) return;
-
         const resize = () => {
             canvas.width = container.clientWidth;
             canvas.height = container.clientHeight;
-            stage.resize();
         };
         resize();
-
         window.addEventListener('resize', resize);
-
-        stage.init();
-        useStageStore.setState({ canvas: canvas });
-        useInteractionStore.getState().mainInteraction.attach();
-
+        run();
         return () => {
             window.removeEventListener('resize', resize);
-            stage.dispose();
         };
     });
 
@@ -52,7 +39,7 @@ function Canvas() {
         >
             <canvas
                 ref={mainCanvas}
-                id="main_canvas"
+                id="canvas"
                 style={{
                     outline: 'none'
                 }}
@@ -60,5 +47,3 @@ function Canvas() {
         </div>
     );
 }
-
-export default Canvas;

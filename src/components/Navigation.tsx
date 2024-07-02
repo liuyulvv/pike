@@ -1,7 +1,7 @@
 import { Button, Space } from '@arco-design/web-react';
-import useDrawStore, { DrawStateType } from '../store/DrawStore';
+import { DrawStateType, useDrawStore } from '../store/DrawStore';
 
-function Navigation() {
+export function Navigation() {
     return (
         <div
             style={{
@@ -46,5 +46,3 @@ function Navigation() {
         </div>
     );
 }
-
-export default Navigation;

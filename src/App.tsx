@@ -1,7 +1,21 @@
-import Canvas from './components/Canvas';
-import Navigation from './components/Navigation';
+import { useEffect } from 'react';
+import { Navigation } from './components/Navigation';
 
 function App() {
+    useEffect(() => {
+        const canvas = document.getElementById('main_canvas') as HTMLCanvasElement;
+        const resize = () => {
+            canvas.width = document.body.clientWidth;
+            canvas.height = document.body.clientHeight;
+            console.log('Resized canvas to', canvas.width, canvas.height);
+        };
+        resize();
+        window.addEventListener('resize', resize);
+        return () => {
+            window.removeEventListener('resize', resize);
+        };
+    });
+
     return (
         <div
             style={{
@@ -11,18 +25,6 @@ function App() {
             }}
         >
             <Navigation />
-            <div
-                style={{
-                    display: 'flex',
-                    flexGrow: '1',
-                    flexShrink: '1',
-                    overflowX: 'hidden',
-                    overflowY: 'hidden',
-                    position: 'relative'
-                }}
-            >
-                <Canvas />
-            </div>
         </div>
     );
 }
