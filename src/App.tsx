@@ -20,7 +20,9 @@ function App() {
             style={{
                 display: 'flex',
                 flexDirection: 'column',
-                height: '100vh'
+                height: '100vh',
+                zIndex: 1,
+                position: 'relative'
             }}
         >
             <Navigation />
